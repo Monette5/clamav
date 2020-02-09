@@ -1,0 +1,30 @@
+1>------ Build started: Project: libclamav, Configuration: Debug Win32 ------
+1>   Creating library C:\Users\Upstairs\Documents\ClamAV\clamav-devel\win32\Win32\Debug\libclamav.lib and object C:\Users\Upstairs\Documents\ClamAV\clamav-devel\win32\Win32\Debug\libclamav.exp
+1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+1>Xz.obj : error LNK2019: unresolved external symbol _Sha256_Init referenced in function _XzCheck_Init
+1>XzDec.obj : error LNK2001: unresolved external symbol _Sha256_Init
+1>Xz.obj : error LNK2019: unresolved external symbol _Sha256_Update referenced in function _XzCheck_Update
+1>XzDec.obj : error LNK2001: unresolved external symbol _Sha256_Update
+1>Xz.obj : error LNK2019: unresolved external symbol _Sha256_Final referenced in function _XzCheck_Final
+1>XzDec.obj : error LNK2001: unresolved external symbol _Sha256_Final
+1>xz_iface.obj : error LNK2019: unresolved external symbol _XzUnpacker_Create referenced in function _cli_XzInit
+1>C:\Users\Upstairs\Documents\ClamAV\clamav-devel\win32\Win32\Debug\libclamav.dll : fatal error LNK1120: 4 unresolved externals
+1>Done building project "libclamav.vcxproj" -- FAILED.
+2>------ Build started: Project: sigtool, Configuration: Debug Win32 ------
+3>------ Build started: Project: clamdscan, Configuration: Debug Win32 ------
+4>------ Build started: Project: clamdtop, Configuration: Debug Win32 ------
+3>client.obj : error LNK2019: unresolved external symbol _cli_strntoul referenced in function _ping_clamd
+3>C:\Users\Upstairs\Documents\ClamAV\clamav-devel\win32\Win32\Debug\clamdscan.exe : fatal error LNK1120: 1 unresolved externals
+3>Done building project "clamdscan.vcxproj" -- FAILED.
+2>cdiff.obj : error LNK2019: unresolved external symbol _EVP_MD_CTX_new referenced in function _cdiff_apply
+2>cdiff.obj : error LNK2019: unresolved external symbol _EVP_MD_CTX_free referenced in function _cdiff_apply
+2>cdiff.obj : error LNK2019: unresolved external symbol _EVP_DigestInit_ex referenced in function _cdiff_apply
+2>cdiff.obj : error LNK2019: unresolved external symbol _EVP_DigestUpdate referenced in function _cdiff_apply
+2>cdiff.obj : error LNK2019: unresolved external symbol _EVP_DigestFinal_ex referenced in function _cdiff_apply
+2>cdiff.obj : error LNK2019: unresolved external symbol _EVP_sha256 referenced in function _cdiff_apply
+2>C:\Users\Upstairs\Documents\ClamAV\clamav-devel\win32\Win32\Debug\sigtool.exe : fatal error LNK1120: 6 unresolved externals
+2>Done building project "sigtool.vcxproj" -- FAILED.
+4>clamdtop.obj : error LNK2001: unresolved external symbol _stdscr
+4>C:\Users\Upstairs\Documents\ClamAV\clamav-devel\win32\Win32\Debug\clamdtop.exe : fatal error LNK1120: 1 unresolved externals
+4>Done building project "clamdtop.vcxproj" -- FAILED.
+========== Build: 0 succeeded, 4 failed, 15 up-to-date, 0 skipped ==========

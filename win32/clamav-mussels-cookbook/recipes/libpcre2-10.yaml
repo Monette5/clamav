@@ -1,0 +1,116 @@
+# Copyright (C) 2019 Cisco Systems, Inc. and/or its affiliates. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: libpcre2
+version: "10.33"
+url: https://ftp.pcre.org/pub/pcre/pcre2-10.33.tar.gz
+mussels_version: "0.2"
+type: recipe
+platforms:
+  Darwin:
+    host:
+      build_script:
+        configure: |
+          ./configure --prefix="{install}" --disable-dependency-tracking
+        make: |
+          make
+        install: |
+          make install
+          install_name_tool -add_rpath @executable_path/../lib "{install}/lib/libpcre2-8.dylib"
+      dependencies:
+        - libbz2<1.1.0
+        - libz
+      install_paths:
+        license/libpcre2:
+          - COPYING
+      required_tools:
+        - make
+        - clang
+  Linux:
+    host:
+      build_script:
+        configure: |
+          ./configure --prefix="{install}" --disable-dependency-tracking
+        make: |
+          make
+        install: |
+          make install
+          patchelf --set-rpath '$ORIGIN/../lib' "{install}/lib/libpcre2-8.so"
+      dependencies:
+        - libbz2<1.1.0
+        - libz
+      install_paths:
+        license/libpcre2:
+          - COPYING
+      required_tools:
+        - make
+        - gcc
+        - patchelf
+  Windows:
+    x64:
+      build_script:
+        configure: |
+          CALL vcvarsall.bat amd64
+          CALL cmake.exe -G "Visual Studio 15 2017 Win64" \
+              -DBUILD_SHARED_LIBS=ON \
+              -DZLIB_INCLUDE_DIR="{includes}" \
+              -DZLIB_LIBRARY_RELEASE="{libs}/zlibstatic.lib" \
+              -DBZIP2_INCLUDE_DIR="{includes}" \
+              -DBZIP2_LIBRARY_RELEASE="{libs}/libbz2.lib"
+        make: |
+          CALL vcvarsall.bat amd64
+          CALL cmake.exe --build . --config Release
+      dependencies:
+        - libbz2<1.1.0
+        - libz
+      install_paths:
+        include:
+          - pcre2.h
+        lib:
+          - Release/pcre2-8.dll
+          - Release/pcre2-8.lib
+        license/libpcre2:
+          - COPYING
+      patches: libpcre2-10.33-patches
+      required_tools:
+        - cmake
+        - visualstudio=2017
+    x86:
+      build_script:
+        configure: |
+          CALL vcvarsall.bat x86
+          CALL cmake.exe -G "Visual Studio 15 2017" \
+              -DBUILD_SHARED_LIBS=ON \
+              -DZLIB_INCLUDE_DIR="{includes}" \
+              -DZLIB_LIBRARY_RELEASE="{libs}/zlibstatic.lib" \
+              -DBZIP2_INCLUDE_DIR="{includes}" \
+              -DBZIP2_LIBRARY_RELEASE="{libs}/libbz2.lib"
+        make: |
+          CALL vcvarsall.bat x86
+          CALL cmake.exe --build . --config Release
+      dependencies:
+        - libbz2<1.1.0
+        - libz
+      install_paths:
+        include:
+          - pcre2.h
+        lib:
+          - Release/pcre2-8.dll
+          - Release/pcre2-8.lib
+        license/libpcre2:
+          - COPYING
+      patches: libpcre2-10.33-patches
+      required_tools:
+        - cmake
+        - visualstudio=2017
